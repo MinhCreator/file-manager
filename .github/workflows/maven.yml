@@ -18,6 +18,9 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 env:
   APP_VERSION: ${{ github.event.inputs.version }}
 
