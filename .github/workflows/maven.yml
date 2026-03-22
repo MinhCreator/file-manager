@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Run java Build CI'
-        required: false
+        description: 'Enter APP_VERSION and run java Build CI'
+        required: true
       confirm:
         description: 'Run?'
         required: true
@@ -21,9 +21,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
+     env:
+          APP_VERSION: ${{ github.event.inputs.version }}
+
 
     - name: Set up JDK 8
       uses: actions/setup-java@v4
@@ -35,8 +37,24 @@ jobs:
     - name: Build with Maven
       run: xvfb-run mvn -B package
 
+  echo_Build_Path:
+      - name: echo Path
+        run: |
+          echo $PATH
+          echo $pwd
+
+  upload:
     - name: Upload JAR artifact
       uses: actions/upload-artifact@v4
       with:
         name: filemanager-jar
         path: target/filemanager.jar
+        if-no-files-found: error
+
+    - name: GitHub Released
+       uses: softprops/action-gh-release@v2
+       with:
+           name: filemanager-${{ steps.build.outputs.APP_VERSION }}
+           tag_name: ${{ steps.build.outputs.APP_VERSION }}
+           files: |
+                target/filemanager.jar
