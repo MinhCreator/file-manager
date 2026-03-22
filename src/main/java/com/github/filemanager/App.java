@@ -1,4 +1,4 @@
-import com.github.filemanager.FileManager;
+package com.github.filemanager;
 
 public class App {
     public static void main(String[] args) {
