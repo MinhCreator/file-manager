@@ -60,7 +60,6 @@ jobs:
       uses: softprops/action-gh-release@v2.6.1
       with:
         body_path: file manager version ${{ github.event.inputs.version }} released
-        tag_name: stage-${{ github.event.inputs.version }}
-        files: target/filemanager.jar
+        files: filemanager.jar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
