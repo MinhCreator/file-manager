@@ -59,7 +59,7 @@ jobs:
     - name: GH Release
       uses: softprops/action-gh-release@v2.6.1
       with:
-        tag_name: file manager v${{ github.event.inputs.version }}
+        tag_name: file-manager-v${{ github.event.inputs.version }}
         files: filemanager.jar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
