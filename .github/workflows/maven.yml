@@ -3,17 +3,16 @@
 name: Java CI
 on:
   repository_dispatch:
-      types: [build]
-    workflow_dispatch:
-      inputs:
-        version:
-          description: Run java Build CI
-          required: false
-
-        confirm:
-            description: 'Run?'
-            required: true
-            default: 'YES!'
+    types: [build]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Run java Build CI'
+        required: false
+      confirm:
+        description: 'Run?'
+        required: true
+        default: 'YES!'
   push:
     branches: [ main ]
   pull_request:
