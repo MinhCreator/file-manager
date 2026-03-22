@@ -8,7 +8,7 @@ on:
     inputs:
       version:
         description: 'Enter APP_VERSION and run java Build CI'
-        required: true
+        required: false
       confirm:
         description: 'Run?'
         required: true
@@ -60,7 +60,7 @@ jobs:
       uses: softprops/action-gh-release@v2.6.1
       with:
         body_path: file manager version ${{ github.event.inputs.version }} released
-        tag_name: stage-${{ github.event.inputs.version }}
+        tag_name: file manager v${{ github.event.inputs.version }}
         files: filemanager.jar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
