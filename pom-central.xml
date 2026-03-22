@@ -63,7 +63,7 @@
         <configuration>  
           <archive>  
             <manifest>  
-              <mainClass>com.github.filemanager.FileManager</mainClass>  
+              <mainClass>com.github.filemanager.component.FileManager</mainClass>
             </manifest>  
           </archive>  
         </configuration>  
