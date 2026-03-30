@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="filemanager:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="866b1abe-6398-466a-9188-70977c8ac134" name="Changes" comment="new up">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/filemanager/component/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/filemanager/component/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/filemanager/component/FileTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/filemanager/component/FileTableModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/filemanager/component/FileTreeCellRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/filemanager/component/FileTreeCellRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/filemanager/service/PerformanceMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/filemanager/service/PerformanceMonitor.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MinhCreator&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MinhCreator/file-manager.git&quot;,
+    &quot;accountId&quot;: &quot;9b7444e6-faec-42cd-9bde-dd1b40304ac7&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="3BBmbZVcAz189Y0sW4xEwcsx0zj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.FileManager.executor&quot;: &quot;Run&quot;,
+    &quot;Application.OptimizedFileManager.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.filemanager.jar (1).executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.filemanager.jar.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.filemanager [verify].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/myJava/fileManagerProject&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.19727892&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\myJava\fileManagerProject" />
+      <recent name="D:\myJava\fileManagerProject\src\main" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github.filemanager" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.filemanager.App" />
+      <module name="filemanager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.filemanager.component.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="filemanager.jar (1)" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/filemanager_jar/filemanager.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="filemanager.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/filemanager.jar" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="JAR Application.filemanager.jar (1)" />
+        <item itemvalue="JAR Application.filemanager.jar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="866b1abe-6398-466a-9188-70977c8ac134" name="Changes" comment="" />
+      <created>1773970909887</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773970909887</updated>
+    </task>
+    <task id="LOCAL-00001" summary="small mirror changed">
+      <option name="closed" value="true" />
+      <created>1774072950696</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774072950697</updated>
+    </task>
+    <task id="LOCAL-00002" summary="mirror changed and remove file">
+      <option name="closed" value="true" />
+      <created>1774074506025</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774074506025</updated>
+    </task>
+    <task id="LOCAL-00003" summary="mirror changed build CI">
+      <option name="closed" value="true" />
+      <created>1774149762076</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1774149762076</updated>
+    </task>
+    <task id="LOCAL-00004" summary="mirror changed build CI fix">
+      <option name="closed" value="true" />
+      <created>1774149900165</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1774149900165</updated>
+    </task>
+    <task id="LOCAL-00005" summary="mirror changed build CI fix next version">
+      <option name="closed" value="true" />
+      <created>1774150024277</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1774150024277</updated>
+    </task>
+    <task id="LOCAL-00006" summary="mirror changed project structure">
+      <option name="closed" value="true" />
+      <created>1774150398985</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1774150398985</updated>
+    </task>
+    <task id="LOCAL-00007" summary="changing mainClass for auto-build">
+      <option name="closed" value="true" />
+      <created>1774150678503</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1774150678503</updated>
+    </task>
+    <task id="LOCAL-00008" summary="changed some line">
+      <option name="closed" value="true" />
+      <created>1774151790655</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1774151790655</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix workflow error">
+      <option name="closed" value="true" />
+      <created>1774152044814</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1774152044814</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix workflow">
+      <option name="closed" value="true" />
+      <created>1774152329552</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1774152329552</updated>
+    </task>
+    <task id="LOCAL-00011" summary="new up">
+      <option name="closed" value="true" />
+      <created>1774153155115</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1774153155115</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="small mirror changed" />
+    <MESSAGE value="mirror changed and remove file" />
+    <MESSAGE value="mirror changed build CI" />
+    <MESSAGE value="mirror changed build CI fix" />
+    <MESSAGE value="mirror changed build CI fix next version" />
+    <MESSAGE value="mirror changed project structure" />
+    <MESSAGE value="changing mainClass for auto-build" />
+    <MESSAGE value="changed some line" />
+    <MESSAGE value="fix workflow error" />
+    <MESSAGE value="fix workflow" />
+    <MESSAGE value="new up" />
+    <option name="LAST_COMMIT_MESSAGE" value="new up" />
+  </component>
+</project>

@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="filemanager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/filemanager_jar</output-path>
+    <root id="archive" name="filemanager.jar">
+      <element id="module-output" name="filemanager" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf-extras/3.7.1/flatlaf-extras-3.7.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.21.0/commons-io-2.21.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/weisj/jsvg/2.0.0/jsvg-2.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf/3.7.1/flatlaf-3.7.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

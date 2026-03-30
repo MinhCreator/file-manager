@@ -93,7 +93,7 @@ public class PerformanceMonitor extends JPanel implements Runnable {
 
         JButton showStatsButton = new JButton("Show Detailed Stats");
         showStatsButton.addActionListener(e -> {
-            WeakFileCache.CacheStatistics stats = WeakFileCache.getStatistics();
+            FileCache.CacheStatistics stats = FileCache.getStatistics();
             JOptionPane.showMessageDialog(this, stats.toString(), "Cache Statistics",
                     JOptionPane.INFORMATION_MESSAGE);
         });
@@ -148,16 +148,16 @@ public class PerformanceMonitor extends JPanel implements Runnable {
 
     private void updateCacheStatistics() {
         FileCache.CacheStatistics fileCacheStats = FileCache.getStatistics();
-        WeakFileCache.CacheStatistics weakCacheStats = WeakFileCache.getStatistics();
+//        WeakFileCache.CacheStatistics weakCacheStats = WeakFileCache.getStatistics();
 
         String statsText = String.format(
                 "<html>" +
-                "<b>FileCache:</b> %d icons (%.1f%% hits), %d metadata (%.1f%% hits)<br>" +
-                "<b>WeakFileCache:</b> %d icons (%.1f%% hits), %d metadata (%.1f%% hits)",
+                "<b>FileCache:</b> %d icons (%.1f%% hits), %d metadata (%.1f%% hits)<br>",
+//                "<b>WeakFileCache:</b> %d icons (%.1f%% hits), %d metadata (%.1f%% hits)",
                 fileCacheStats.iconCacheSize, fileCacheStats.getIconHitRate(),
-                fileCacheStats.metadataCacheSize, fileCacheStats.getMetadataHitRate(),
-                weakCacheStats.iconCacheSize, weakCacheStats.getIconHitRate(),
-                weakCacheStats.metadataCacheSize, weakCacheStats.getMetadataHitRate()
+                fileCacheStats.metadataCacheSize, fileCacheStats.getMetadataHitRate()
+//                weakCacheStats.iconCacheSize, weakCacheStats.getIconHitRate(),
+//                weakCacheStats.metadataCacheSize, weakCacheStats.getMetadataHitRate()
         );
 
         cacheStatsLabel.setText(statsText);
@@ -185,6 +185,7 @@ public class PerformanceMonitor extends JPanel implements Runnable {
             if (text.length() > 5000) {
                 performanceLog.setText(text.substring(0, 5000));
             }
+            System.out.println(message);
         });
     }
 

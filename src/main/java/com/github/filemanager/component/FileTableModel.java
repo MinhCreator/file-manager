@@ -16,6 +16,8 @@ import static com.github.filemanager.service.FileCache.getCachedMetadata;
 public class FileTableModel extends AbstractTableModel {
 
     private File[] files;
+    private File[] allFiles;
+    private String currentFilter = "";
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private final String[] columns = {
             "Icon", "File", "Path/name", "Size", "Last Modified", "R", "W", "E", "D", "F",
@@ -31,7 +33,8 @@ public class FileTableModel extends AbstractTableModel {
     }
 
     FileTableModel(File[] files) {
-        this.files = files;
+        this.allFiles = files != null ? files : new File[0];
+        this.files = this.allFiles;
     }
 
     @Override
@@ -112,7 +115,19 @@ public class FileTableModel extends AbstractTableModel {
     }
 
     public void setFiles(File[] files) {
-        this.files = files != null ? files : new File[0];
+        this.allFiles = files != null ? files : new File[0];
+        applyFilter();
+    }
+
+    private void applyFilter() {
+        if (currentFilter == null || currentFilter.isEmpty()) {
+            this.files = this.allFiles;
+        } else {
+            String filterLower = currentFilter.toLowerCase();
+            this.files = Arrays.stream(this.allFiles)
+                .filter(f -> getCachedMetadata(f).name.toLowerCase().contains(filterLower))
+                .toArray(File[]::new);
+        }
         this.rowToIndex = new int[this.files.length];
         for (int i = 0; i < this.files.length; i++) {
             this.rowToIndex[i] = i;
@@ -123,6 +138,20 @@ public class FileTableModel extends AbstractTableModel {
         } else {
             fireTableDataChanged();
         }
+    }
+
+    public void setFilter(String filter) {
+        this.currentFilter = filter != null ? filter : "";
+        applyFilter();
+    }
+
+    public String getFilter() {
+        return currentFilter;
+    }
+
+    public void clearFilter() {
+        this.currentFilter = "";
+        applyFilter();
     }
 
     public void sortByColumn(int column) {
@@ -219,6 +248,6 @@ public class FileTableModel extends AbstractTableModel {
     public void clearSort() {
         sortColumn = -1;
         sortAscending = true;
-        setFiles(files); // Reset to original order
+        setFiles(files);
     }
 }

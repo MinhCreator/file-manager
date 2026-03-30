@@ -31,22 +31,16 @@ import com.github.filemanager.service.PerformanceMonitor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.TableColumn;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,10 +87,10 @@ public class FileManager {
             JFrame MainFrame = new JFrame(APP_TITLE);
             try {
                 UIManager.setLookAndFeel(new FlatLightLaf());
-                URL urlBig = FileManager.class.getResource("src/main/resources/file-folder-32.png");
-                URL urlSmall = FileManager.class.getResource("src/main/resources/file-folder-16.png");
+//                URL urlBig = FileManager.class.getResource("src/main/resources/file-folder-32.png");
+//                URL urlSmall = FileManager.class.getResource("src/main/resources/file-folder-16.png");
                 MainFrame.setContentPane(InitGui());
-                ArrayList<Image> images = new ArrayList<Image>();
+                ArrayList<Image> images = new ArrayList<>();
                 Image image64 = new ImageIcon("src/main/resources/file-folder-64.png").getImage();
 //                images.add(ImageIO.read(urlBig));
 //                images.add(ImageIO.read(urlSmall));
@@ -141,28 +135,24 @@ public class FileManager {
         openFile.setMnemonic('o');
 
         openFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        try {
-                            desktop.open(currentFile);
-                        } catch (Throwable t) {
-                            showThrowable(t);
-                        }
-                        gui.repaint();
+                ae -> {
+                    try {
+                        desktop.open(currentFile);
+                    } catch (Throwable t) {
+                        showThrowable(t);
                     }
+                    gui.repaint();
                 });
         toolBar.add(openFile);
 
         editFile = new JButton("Edit");
         editFile.setMnemonic('e');
         editFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        try {
-                            desktop.edit(currentFile);
-                        } catch (Throwable t) {
-                            showThrowable(t);
-                        }
+                ae -> {
+                    try {
+                        desktop.edit(currentFile);
+                    } catch (Throwable t) {
+                        showThrowable(t);
                     }
                 });
         toolBar.add(editFile);
@@ -170,13 +160,11 @@ public class FileManager {
         printFile = new JButton("Print");
         printFile.setMnemonic('p');
         printFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        try {
-                            desktop.print(currentFile);
-                        } catch (Throwable t) {
-                            showThrowable(t);
-                        }
+                ae -> {
+                    try {
+                        desktop.print(currentFile);
+                    } catch (Throwable t) {
+                        showThrowable(t);
                     }
                 });
         toolBar.add(printFile);
@@ -191,41 +179,25 @@ public class FileManager {
         newFile = new JButton("New");
         newFile.setMnemonic('n');
         newFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        newFile();
-                    }
-                });
+                ae -> newFile());
         toolBar.add(newFile);
 
         copyFile = new JButton("Copy");
         copyFile.setMnemonic('c');
         copyFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        copyFile();
-                    }
-                });
+                ae -> copyFile());
         toolBar.add(copyFile);
 
         JButton renameFile = new JButton("Rename");
         renameFile.setMnemonic('r');
         renameFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        renameFile();
-                    }
-                });
+                ae -> renameFile());
         toolBar.add(renameFile);
 
         deleteFile = new JButton("Delete");
         deleteFile.setMnemonic('d');
         deleteFile.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent ae) {
-                        deleteFile();
-                    }
-                });
+                ae -> deleteFile());
         toolBar.add(deleteFile);
 
         toolBar.addSeparator();
@@ -251,16 +223,59 @@ public class FileManager {
     private JComponent topPanel(){
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 2));
 
+        searchField = new JTextField(20);
+        searchField.setToolTipText("Fast filter - type to filter current folder files");
+        
+        // Add real-time search listener for local filtering
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterInCurrPath();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterInCurrPath();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterInCurrPath();
+            }
+        });
+        
+        // Add Enter key listener to clear search
+        searchField.addActionListener(ae -> clearSearch());
+        
+        searchButton = new JButton(new FlatSVGIcon("scope.svg"));
+        searchButton.setToolTipText("Clear filter");
+
+        searchButton.addActionListener(ae -> {
+            if (searchField.getText().isEmpty()) {
+                searchField.requestFocus();
+            } else {
+                clearSearch();
+            }
+        });
+        
+        // Global search button
+        JButton globalSearchBtn = new JButton("Global Search");
+        globalSearchBtn.setToolTipText("Search across all drives/storage");
+        globalSearchBtn.setMnemonic('g');
+        globalSearchBtn.addActionListener(ae -> new Search().globalSearch());
+        
+        topPanel.add(new JLabel("Filter: "));
+        topPanel.add(searchField);
+        topPanel.add(searchButton);
+        topPanel.add(globalSearchBtn);
+
+
         refreshButton = new JButton();
         refreshButton.setIcon(new FlatSVGIcon("reload.svg"));
         refreshButton.setMnemonic('f');
         refreshButton.setToolTipText("Refresh");
         refreshButton.setSize(10,10);
-        refreshButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                refreshCurrent();
-            }
-        });
+        refreshButton.addActionListener(ae -> refreshCurrent());
         topPanel.add(refreshButton);
 
         performanceMonitor = new JButton();
@@ -268,23 +283,21 @@ public class FileManager {
         performanceMonitor.setToolTipText("Performance Monitor");
         performanceMonitor.setSize(10,10);
         performanceMonitor.setMnemonic('m');
-        performanceMonitor.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                JFrame frame = new JFrame("Performance Monitor");
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.setSize(400, 300);
-                PerformanceMonitor performanceMonitor = new PerformanceMonitor();
-                Thread thread = new Thread(performanceMonitor);
-                thread.start();
-                frame.setContentPane(performanceMonitor);
-                frame.setVisible(true);
-                frame.addWindowListener(new WindowAdapter() {
-                    public void windowClosed(WindowEvent e) {
-                        performanceMonitor.stop();
-                    }
-                });
+        performanceMonitor.addActionListener(ae -> {
+            JFrame frame = new JFrame("Performance Monitor");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(400, 300);
+            PerformanceMonitor performanceMonitor = new PerformanceMonitor();
+            Thread thread = new Thread(performanceMonitor);
+            thread.start();
+            frame.setContentPane(performanceMonitor);
+            frame.setVisible(true);
+            frame.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent e) {
+                    performanceMonitor.stop();
+                }
+            });
 
-            }
         });
         topPanel.add(performanceMonitor);
         return topPanel;
@@ -317,14 +330,12 @@ public class FileManager {
             });
 
             listSelectionListener =
-                    new ListSelectionListener() {
-                        @Override
-                        public void valueChanged(ListSelectionEvent lse) {
-                            int row = table.getSelectionModel().getLeadSelectionIndex();
-                            setFileDetails(((FileTableModel) table.getModel()).getFile(row));
-                        }
+                    lse -> {
+                        int row = table.getSelectionModel().getLeadSelectionIndex();
+                        setFileDetails(((FileTableModel) table.getModel()).getFile(row));
                     };
             table.getSelectionModel().addListSelectionListener(listSelectionListener);
+            doubleClickToGoToFileOrFolder();
             JScrollPane tableScroll = new JScrollPane(table);
             Dimension d = tableScroll.getPreferredSize();
             tableScroll.setPreferredSize(
@@ -336,13 +347,11 @@ public class FileManager {
             treeModel = new DefaultTreeModel(root);
 
             TreeSelectionListener treeSelectionListener =
-                    new TreeSelectionListener() {
-                        public void valueChanged(TreeSelectionEvent tse) {
-                            DefaultMutableTreeNode node =
-                                    (DefaultMutableTreeNode) tse.getPath().getLastPathComponent();
-                            showChildren(node);
-                            setFileDetails((File) node.getUserObject());
-                        }
+                    tse -> {
+                        DefaultMutableTreeNode node =
+                                (DefaultMutableTreeNode) tse.getPath().getLastPathComponent();
+                        showChildren(node);
+                        setFileDetails((File) node.getUserObject());
                     };
 
             // show the file system roots.
@@ -447,7 +456,7 @@ public class FileManager {
         tree.setSelectionInterval(0, 0);
     }
 
-    private TreePath findTreePath(File find) {
+    public static TreePath findTreePath(File find) {
         for (int ii = 0; ii < tree.getRowCount(); ii++) {
             TreePath treePath = tree.getPathForRow(ii);
             Object object = treePath.getLastPathComponent();
@@ -465,7 +474,7 @@ public class FileManager {
     /**
      * Update the table on the EDT
      */
-    private void setTableData(final File[] files) {
+    private static void setTableData(final File[] files) {
         SwingUtilities.invokeLater(
                 () -> {
                     if (fileTableModel == null) {
@@ -497,7 +506,7 @@ public class FileManager {
                 });
     }
 
-    private void scaleColumnWidth(int column, int width) {
+    private static void scaleColumnWidth(int column, int width) {
         TableColumn tableColumn = table.getColumnModel().getColumn(column);
         if (width < 0) {
             // use the preferred width of the header..
@@ -515,7 +524,7 @@ public class FileManager {
      * Add the files that are contained within the directory of this node. Thanks to Hovercraft Full
      * Of Eels.
      */
-    private void showChildren(final DefaultMutableTreeNode node) {
+    public static void showChildren(final DefaultMutableTreeNode node) {
         File file = (File) node.getUserObject();
         if (!file.isDirectory()) {
             return; // Early exit for non-directories
@@ -618,7 +627,7 @@ public class FileManager {
     /**
      * Update the File details view with the details of this File.
      */
-    private void setFileDetails(File file) {
+    public static void setFileDetails(File file) {
         if (file == null) {
             return;
         }
@@ -862,7 +871,177 @@ public class FileManager {
         }
     }
 
-    private void showErrorMessage(String errorMessage, String errorTitle) {
+    /**
+     * Fast search - filter files in real-time as user types.
+     * Filters the current directory's files by name (case-insensitive).
+     */
+    private void filterInCurrPath() {
+        if (fileTableModel != null) {
+            String filter = searchField.getText();
+            fileTableModel.setFilter(filter);
+            // Update window title to show filter status
+            JFrame f = (JFrame) gui.getTopLevelAncestor();
+            if (f != null && currentFile != null) {
+                if (filter.isEmpty()) {
+                    f.setTitle(APP_TITLE + " :: " + currentFile.getPath());
+                } else {
+                    f.setTitle(APP_TITLE + " :: " + currentFile.getPath() + " [Filter: " + filter + "]");
+                }
+            }
+        }
+    }
+
+    // Double-click to go to file
+    private void doubleClickToGoToFileOrFolder() {
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int row = table.getSelectedRow();
+                    if (row >= 0) {
+                        File selectedFile = fileTableModel.getFile(row);
+                        if (selectedFile == null) {
+                            return;
+                        }
+                        if (selectedFile.isDirectory()) {
+                            // Navigate into directory - expand parents if needed
+                            navigateToDirectory(selectedFile);
+                        } else {
+                            // Open file
+                            try {
+                                desktop.open(selectedFile);
+                            } catch (Exception ex) {
+                                showErrorMessage("Cannot open file: " + ex.getMessage(), "Error");
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    /**
+     * Navigate to a directory, expanding parent nodes in the tree as needed.
+     */
+    private void navigateToDirectory(File dir) {
+        if (dir == null) return;
+        
+        // Try to find existing path first
+        TreePath path = findTreePath(dir);
+        if (path != null) {
+            tree.expandPath(path);
+            tree.setSelectionPath(path);
+            tree.scrollPathToVisible(path);
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+            currentFile = dir;
+            showChildren(node);
+            setFileDetails(dir);
+            gui.repaint();
+            return;
+        }
+        
+        // Path not found - need to expand parent first
+        File parent = dir.getParentFile();
+        if (parent != null) {
+            // Recursively navigate to parent first
+            TreePath parentPath = buildTreePath(parent);
+            if (parentPath != null) {
+                tree.expandPath(parentPath);
+                tree.setSelectionPath(parentPath);
+                DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parentPath.getLastPathComponent();
+                showChildren(parentNode);
+                
+                // Now try again to find the child
+                SwingUtilities.invokeLater(() -> {
+                    TreePath childPath = findTreePath(dir);
+                    if (childPath != null) {
+                        tree.expandPath(childPath);
+                        tree.setSelectionPath(childPath);
+                        tree.scrollPathToVisible(childPath);
+                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) childPath.getLastPathComponent();
+                        currentFile = dir;
+                        showChildren(node);
+                        setFileDetails(dir);
+                    }
+                    gui.repaint();
+                });
+            }
+        }
+    }
+    
+    /**
+     * Build a tree path by expanding parent directories recursively.
+     */
+    private TreePath buildTreePath(File target) {
+        // Try to find existing path
+        TreePath path = findTreePath(target);
+        if (path != null) {
+            return path;
+        }
+        
+        // Build path from root
+        File[] roots = File.listRoots();
+        for (File root : roots) {
+            if (target.getPath().startsWith(root.getPath())) {
+                // Start from root and build path
+                TreePath rootPath = findTreePath(root);
+                if (rootPath == null) continue;
+                
+                String relativePath = target.getPath().substring(root.getPath().length());
+                if (relativePath.startsWith("\\") || relativePath.startsWith("/")) {
+                    relativePath = relativePath.substring(1);
+                }
+                
+                String[] parts = relativePath.split("[\\\\/]");
+                TreePath currentPath = rootPath;
+                File currentFile = root;
+                
+                for (String part : parts) {
+                    if (part.isEmpty()) continue;
+                    currentFile = new File(currentFile, part);
+                    
+                    // Expand current node to load children
+                    tree.expandPath(currentPath);
+                    
+                    // Look for child node
+                    TreePath childPath = findTreePath(currentFile);
+                    if (childPath == null) {
+                        // Child not loaded yet - need to show children first
+                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) currentPath.getLastPathComponent();
+                        if (node.isLeaf()) {
+                            // Node hasn't been expanded, force load
+                            showChildren(node);
+                            // Try again after loading
+                            childPath = findTreePath(currentFile);
+                        }
+                    }
+                    if (childPath == null) {
+                        return null; // Could not build full path
+                    }
+                    currentPath = childPath;
+                }
+                return currentPath;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Clear the search filter and show all files.
+     */
+    private void clearSearch() {
+        searchField.setText("");
+        if (fileTableModel != null) {
+            fileTableModel.clearFilter();
+        }
+        // Reset window title
+        JFrame f = (JFrame) gui.getTopLevelAncestor();
+        if (f != null && currentFile != null) {
+            f.setTitle(APP_TITLE + " :: " + currentFile.getPath());
+        }
+    }
+
+    public static void showErrorMessage(String errorMessage, String errorTitle) {
         JOptionPane.showMessageDialog(gui, errorMessage, errorTitle, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -887,45 +1066,45 @@ public class FileManager {
     /**
      * Used to open/edit/print files.
      */
-    private Desktop desktop;
+    public static Desktop desktop;
     /**
      * Provides nice icons and names for files.
      */
-    private javax.swing.filechooser.FileSystemView fileSystemView;
+    private static javax.swing.filechooser.FileSystemView fileSystemView;
 
     private JFileChooser fileChooser;
 
     /**
      * currently selected File.
      */
-    private File currentFile;
+    private static File currentFile;
 
     /**
      * Main GUI container
      */
-    private JPanel gui;
+    public static JPanel gui;
 
     /**
      * File-system tree. Built Lazily
      */
-    private JTree tree;
+    public static JTree tree;
 
-    private DefaultTreeModel treeModel;
+    private static DefaultTreeModel treeModel;
 
     /**
      * Directory listing
      */
-    private JTable table;
+    public static JTable table;
 
-    private JProgressBar progressBar;
+    private static JProgressBar progressBar;
     /**
      * Table model for File[].
      */
-    private FileTableModel fileTableModel;
+    public static FileTableModel fileTableModel;
 
-    private ListSelectionListener listSelectionListener;
-    private boolean cellSizesSet = false;
-    private final int rowIconPadding = 6;
+    private static ListSelectionListener listSelectionListener;
+    private static boolean cellSizesSet = false;
+    private static final int rowIconPadding = 6;
 
     /* File controls. */
     private JButton openFile;
@@ -937,18 +1116,23 @@ public class FileManager {
     private JButton refreshButton;
     private JButton performanceMonitor;
     /* File details. */
-    private JLabel fileName;
-    private JTextField path;
-    private JLabel date;
-    private JLabel size;
-    private JCheckBox readable;
-    private JCheckBox writable;
-    private JCheckBox executable;
-    private JRadioButton isDirectory;
-    private JRadioButton isFile;
+    private static JLabel fileName;
+    private static JTextField path;
+    private static JLabel date;
+    private static JLabel size;
+    private static JCheckBox readable;
+    private static JCheckBox writable;
+    private static JCheckBox executable;
+    private static JRadioButton isDirectory;
+    private static JRadioButton isFile;
 
     /* GUI options/containers for new File/Directory creation.  Created lazily. */
     private JPanel newFilePanel;
     private JRadioButton newTypeFile;
     private JTextField name;
+
+    private JTextField searchField;
+    private JButton searchButton;
+
+
 }
